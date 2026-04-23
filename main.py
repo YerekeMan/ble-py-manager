@@ -16,7 +16,7 @@ async def run_ble():
     async with BleakClient(device.address) as client:
         print(f"Connected to {device.name or device.address}")
 
-        # Собираем все характеристики
+        # getting characteristics
         chars = []
         for service in client.services:
             for char in service.characteristics:
@@ -25,7 +25,7 @@ async def run_ble():
         while client.is_connected:
             print("\n--- Available Characteristics ---")
             for i, c in enumerate(chars):
-                # c.description — это встроенное в bleak название характеристики
+                # c.description — in bleak names of characteristics
                 name = c.description if c.description else "Unknown Characteristic"
                 print(f"[{i}] {name}")
                 print(f"    UUID: {c.uuid}")
